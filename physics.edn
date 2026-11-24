@@ -1,0 +1,28 @@
+;; ISCO-08 major group 8 (Plant and Machine Operators) — physical-AI sample.
+;; The physical work declared here is the handling the occupation itself
+;; entails (ASSUMPTION, to be replaced with a sourced premise): a manipulator
+;; handling parts on an assembly cell, and a carrier transporting pallets
+;; across the plant floor. Every number without a cited source is marked
+;; `estimate` in its :basis.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-8"
+ :cases
+ [{:id :assembly-parts-handling
+   :kind :manipulator
+   :procedure "arm moves parts from the assembly-cell infeed onto the assembly fixture"
+   :params {:l1-m 0.60 :l2-m 0.55 :m1-kg 6.0 :m2-kg 5.0
+            :from [0.75 -0.30] :to [0.45 0.85] :duration-s 4.0 :steps 800}
+   :sweep {:param :payload-kg :values [1.0 2.0 4.0 6.0 8.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 80.0 :basis "estimate: continuous shoulder torque of a medium collaborative arm (~8 kg class)"}
+   :boundary {:lo 0.1 :hi 40.0}}
+  {:id :pallet-plant-transport
+   :kind :transport
+   :procedure "plant carrier transports pallets across the plant floor to the dispatch point"
+   :params {:mass-kg 120.0 :payload-kg 60.0 :v-max-mps 1.2 :a-max-mps2 0.6
+            :brake-decel-mps2 0.8 :drive-force-n 180.0 :crr 0.03
+            :cog-height-m 0.50 :support-half-length-m 0.25}
+   :sweep {:param :distance-m :values [20.0 50.0 100.0 150.0 250.0]}
+   :quantity :cycle-time-s
+   :limit {:max 120.0 :basis "estimate: each pallet run within 120 s so the plant outflow keeps the assembly cell on schedule"}
+   :boundary {:lo 5.0 :hi 350.0}}]}

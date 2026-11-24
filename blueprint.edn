@@ -1,0 +1,26 @@
+;; Scope: ISCO-08 major group 8 (Plant and machine operators), which in
+;; ISCO-08 covers major groups 81-83 (stationary plant and machine operators,
+;; assemblers, drivers and mobile plant operators). Sample data in this repo
+;; is synthetic only; licensing properties (licenses, qualifications) are
+;; held pack-side, never in this repo. Dangerous-work decisions are made by
+;; humans; robots and automation assist only and never instruct dangerous
+;; work (:itonami.blueprint/adjudicating false). Work, inspection and
+;; correction history is append-only and never deleted
+;; (:itonami.blueprint/append-only true). Qualification is never asserted as
+;; "qualified": it is one of four states
+;; (:itonami.blueprint/qualification-states), unverified, applying, valid or
+;; not-required.
+[{:itonami.blueprint/id "cloud-itonami-isco-8"
+  :itonami.blueprint/name "ISCO Major 8 — Plant and machine operators"
+  :itonami.blueprint/isco-08 "8"
+  :itonami.blueprint/domain :plant-operators
+  :itonami.blueprint/license "AGPL-3.0-or-later"
+  :itonami.blueprint/social-impact [:fair-hiring :skills-mobility :local-jobs]
+  :itonami.blueprint/governor :plant-operators-governor
+  :itonami.blueprint/robotics true
+  :itonami.blueprint/adjudicating false
+  :itonami.blueprint/append-only true
+  :itonami.blueprint/qualification-states [:unverified :applying :valid :not-required]
+  :itonami.blueprint/required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
+  :itonami.blueprint/status :public-oss
+  :db/id -1}]
