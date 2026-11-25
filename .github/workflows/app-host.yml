@@ -1,0 +1,21 @@
+# Compiles the Tauri v3 host under app/src-tauri. Runs only when the host
+# changes or on request, so the per-push cost stays with the node tests in
+# app.yml. Hosted tooling: it checks that the host builds; it is not a
+# required check and produces no release artifact.
+name: app-host
+on:
+  pull_request:
+    paths: ["app/src-tauri/**", ".github/workflows/app-host.yml"]
+  workflow_dispatch: {}
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: rustup update stable && rustup default stable && rustc --version
+      - run: npm ci && npm run build
+        working-directory: app
+      - run: cargo build --locked
+        working-directory: app/src-tauri
